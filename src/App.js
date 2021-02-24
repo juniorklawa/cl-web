@@ -1,13 +1,15 @@
-import { Editor } from "@tinymce/tinymce-react";
-import "draft-js/dist/Draft.css";
+import { HtmlEditor, MenuBar } from "@aeaton/react-prosemirror";
+import { menu, options } from "@aeaton/react-prosemirror-config-default";
 import React, { useEffect, useState } from "react";
 import io from "socket.io-client";
+import ReactQuill from "react-quill";
+import "react-quill/dist/quill.snow.css";
 
 const ENDPOINT = "http://localhost:8080";
 
 const socket = io(ENDPOINT);
 
-function App() {
+const App = () => {
   const [response, setResponse] = useState("");
 
   useEffect(() => {
@@ -21,65 +23,32 @@ function App() {
     });
   }, []);
 
+  useEffect(() => {
+    const delayDebounceFn = setTimeout(() => {
+      console.log(response);
+      socket.emit("content", response);
+    }, 500);
+
+    return () => clearTimeout(delayDebounceFn);
+  }, [response]);
+
   return (
-    <Editor
-      init={{
-        height: 500,
-        menubar: false,
-        formats: {
-          alignleft: {
-            selector: "p,h1,h2,h3,h4,h5,h6,td,th,div,ul,ol,li,table,img",
-            classes: "left",
-          },
-          aligncenter: {
-            selector: "p,h1,h2,h3,h4,h5,h6,td,th,div,ul,ol,li,table,img",
-            classes: "center",
-          },
-          alignright: {
-            selector: "p,h1,h2,h3,h4,h5,h6,td,th,div,ul,ol,li,table,img",
-            classes: "right",
-          },
-          alignjustify: {
-            selector: "p,h1,h2,h3,h4,h5,h6,td,th,div,ul,ol,li,table,img",
-            classes: "full",
-          },
-          bold: { inline: "span", classes: "bold" },
-          italic: { inline: "span", classes: "italic" },
-          underline: { inline: "span", classes: "underline", exact: true },
-          strikethrough: { inline: "del" },
-          forecolor: {
-            inline: "span",
-            classes: "forecolor",
-            styles: { color: "%value" },
-          },
-          hilitecolor: {
-            inline: "span",
-            classes: "hilitecolor",
-            styles: { backgroundColor: "%value" },
-          },
-          custom_format: {
-            block: "h1",
-            attributes: { title: "Header" },
-            styles: { color: "red" },
-          },
-        },
-        plugins: [
-          "advlist autolink lists link image charmap print preview anchor",
-          "searchreplace visualblocks code fullscreen",
-          "insertdatetime media table paste code help wordcount",
-        ],
-        toolbar:
-          "undo redo | formatselect | bold italic backcolor | \
-             alignleft aligncenter alignright alignjustify | \
-             bullist numlist outdent indent | removeformat | help",
-      }}
+    <ReactQuill
+      theme="snow"
       value={response}
-      onEditorChange={(content, editor) => {
+      onChange={(content) => {
         setResponse(content);
-        socket.emit("content", content);
       }}
     />
   );
-}
-
+};
 export default App;
+{
+  /* <textarea
+value={response}
+onChange={(e) => {
+  setResponse(e.target.value);
+  socket.emit("content", e.target.value);
+}}
+/> */
+}
