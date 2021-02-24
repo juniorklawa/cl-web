@@ -14,15 +14,14 @@ const App = () => {
 		});
 
 		socket.on('content', (data) => {
-			console.log('exec');
 			setResponse(data);
-			socket.off('content');
+			console.log('exec');
 		});
 	}, []);
 
 	return (
 		<SocketContext.Provider value={socket}>
-			<CustomEditor response={response} />
+			<CustomEditor response={response} setResponse={setResponse} />
 		</SocketContext.Provider>
 	);
 };

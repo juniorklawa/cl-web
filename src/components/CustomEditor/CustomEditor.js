@@ -1,16 +1,25 @@
-import React, {useCallback} from 'react';
+import React, {useEffect, useState} from 'react';
 import {SocketContext} from '../../context/socket';
 import {Editor} from '@tinymce/tinymce-react';
+import _ from 'lodash';
 
-const CustomEditor = ({response}) => {
+const CustomEditor = ({response, setResponse}) => {
 	const socket = React.useContext(SocketContext);
 
-	const handleEditorChange = useCallback(
-		(content) => {
-			socket.emit('content', content);
-		},
-		[socket]
-	);
+	const [, setSearchQuery] = useState('');
+
+	const handleEditorChange = (content) => socket.emit('content', content);
+
+	useEffect(() => {
+		const send = _.debounce(handleEditorChange, 1500);
+
+		setSearchQuery((prevSearch) => {
+			if (prevSearch.cancel) prevSearch.cancel();
+			return send;
+		});
+
+		send(response);
+	}, [response]);
 
 	return (
 		<Editor
@@ -28,7 +37,7 @@ const CustomEditor = ({response}) => {
 					'bullist numlist outdent indent | removeformat | help',
 			}}
 			value={response}
-			onEditorChange={handleEditorChange}
+			onEditorChange={(content) => setResponse(content)}
 		/>
 	);
 };
