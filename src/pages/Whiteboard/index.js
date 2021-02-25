@@ -22,7 +22,8 @@ const WhiteBoard = () => {
     const context = canvas.getContext("2d");
 
     let image = new Image(); // see note on creating an image
-    image.src = "https://en.islcollective.com/preview/201309/f/britishamerican-english-matching-exercise-fun-activities-games-icebreakers-oneonone-activiti_58057_1.jpg";
+    image.src =
+      "https://en.islcollective.com/preview/201309/f/britishamerican-english-matching-exercise-fun-activities-games-icebreakers-oneonone-activiti_58057_1.jpg";
     image.onload = function () {
       context.drawImage(this, 0, 0);
     };
@@ -154,10 +155,6 @@ const WhiteBoard = () => {
 
     // ----------------------- socket.io connection ----------------------------
     const onDrawingEvent = (data) => {
-      const a = context.save();
-
-      console.log("oi", data);
-
       const w = canvas.width;
       const h = canvas.height;
       drawLine(data.x0 * w, data.y0 * h, data.x1 * w, data.y1 * h, data.color);
