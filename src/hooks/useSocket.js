@@ -3,9 +3,9 @@ import io from "socket.io-client";
 const SocketContext = createContext({});
 
 const SocketProvider = ({ children }) => {
-  const ENDPOINT = 'https://2f7bf8bf7e74.ngrok.io';
 
-  const socket = io(ENDPOINT);
+
+  const socket = io(process.env.REACT_APP_ENDPOINT);
 
   return (
     <SocketContext.Provider

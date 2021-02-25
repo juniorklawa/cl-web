@@ -1,6 +1,11 @@
 import React from "react";
+import { useLocation } from "react-router-dom";
 
 const GoogleDocs = () => {
+  const {
+    state: { execiseUrl },
+  } = useLocation();
+
   return (
     <div
       style={{
@@ -13,7 +18,7 @@ const GoogleDocs = () => {
         height="100%"
         frameborder="0"
         allowFullScreen
-        src="https://docs.google.com/document/d/1OSVCC3dKgWCJ26kl6lqp0SlCxmOzHGC9Bm3_OqjsapQ/edit?usp=sharing"
+        src={execiseUrl}
         title="WTP Iframe"
       />
     </div>
