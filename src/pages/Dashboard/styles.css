@@ -1,0 +1,62 @@
+#container {
+  width: 100vw;
+  height: 100vh;
+  flex-direction: column;
+  display: flex;
+  flex: 1;
+  align-items: center;
+  justify-content: center;
+  background-color: #1e88e5;
+}
+
+input {
+  margin-bottom: 32px;
+  border-radius: 10px;
+  height: 50px;
+  width: 250px;
+  padding: 16px;
+  font-size: 22px;
+  border-width: 0px;
+  text-align: center;
+}
+
+h1,
+h2 {
+  color: #edf0f0;
+}
+
+#room-btn {
+  cursor: pointer;
+  user-select: none;
+  background-color: #fff;
+  font-weight: 600;
+  -webkit-transition: background 0.2s ease;
+  -moz-transition: background 0.2s ease;
+  -o-transition: background 0.2s ease;
+  transition: background 0.2s ease;
+}
+
+#option-button {
+  width: 250px;
+  height: 60px;
+  border-radius: 10px;
+  justify-content: center;
+  align-items: center;
+  display: flex;
+  text-align: center;
+  cursor: pointer;
+  user-select: none;
+  margin-top: 16px;
+  background-color: #1565c0;
+  border: 1px solid;
+  color: #fff;
+  font-weight: 600;
+  -webkit-transition: background 0.2s ease;
+  -moz-transition: background 0.2s ease;
+  -o-transition: background 0.2s ease;
+  transition: background 0.2s ease;
+}
+
+#option-button:hover {
+  background-color: #0d47a1;
+}
