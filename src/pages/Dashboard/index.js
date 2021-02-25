@@ -65,7 +65,7 @@ const Dashboard = () => {
                   }
                   id="level-button"
                 >
-                  Iniciante
+                  Level A
                 </div>
               </Link>
 
@@ -81,7 +81,7 @@ const Dashboard = () => {
                   }
                   id="level-button"
                 >
-                  Médio
+                  Level B
                 </div>
               </Link>
 
@@ -97,7 +97,7 @@ const Dashboard = () => {
                   }
                   id="level-button"
                 >
-                  Avançado
+                  Level C
                 </div>
               </Link>
             </>
