@@ -1,17 +1,15 @@
 import React, { useRef, useEffect } from "react";
-import io from "socket.io-client";
-import "./styles/board.css";
-
-const ENDPOINT = "http://localhost:8080";
-
-const socket = io(ENDPOINT);
+import { useSocket } from "../../hooks/useSocket";
+import "./styles.css";
 
 const WhiteBoard = () => {
+  const { socket } = useSocket();
+
   const canvasRef = useRef(null);
   const colorsRef = useRef(null);
 
   useEffect(() => {
-    // --------------- getContext() method returns a drawing context on the canvas-----
+    // --------------- getContext() method returns a drawing context on the canvas----
 
     const canvas = canvasRef.current;
     const test = colorsRef.current;
@@ -148,7 +146,7 @@ const WhiteBoard = () => {
     };
 
     socket.on("drawing", onDrawingEvent);
-  }, []);
+  }, [socket]);
 
   // ------------- The Canvas and color elements --------------------------
 

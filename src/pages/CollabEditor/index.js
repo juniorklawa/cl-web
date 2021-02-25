@@ -1,29 +1,32 @@
-import React, {useEffect, useState} from 'react';
-import 'draft-js/dist/Draft.css';
-import {SocketContext, socket} from './context/socket';
-
+import "draft-js/dist/Draft.css";
+import React, { useEffect, useState } from "react";
 // Components
-import CustomEditor from './components/CustomEditor/CustomEditor';
+import CustomEditor from "../../components/CustomEditor";
+import { useSocket } from "../../hooks/useSocket";
 
 const CollabEditor = () => {
-	const [response, setResponse] = useState('');
+  const { socket } = useSocket();
 
-	useEffect(() => {
-		socket.on('newUser', (data) => {
-			setResponse(data);
-		});
+  const [response, setResponse] = useState("");
 
-		socket.on('content', (data) => {
-			setResponse(data);
-			console.log('exec');
-		});
-	}, []);
+  useEffect(() => {
+    socket.on("newUser", (data) => {
+      setResponse(data);
+    });
 
-	return (
-		<SocketContext.Provider value={socket}>
-			<CustomEditor response={response} setResponse={setResponse} />
-		</SocketContext.Provider>
-	);
+    socket.on("content", (data) => {
+      setResponse(data);
+      console.log("exec");
+    });
+  }, [socket]);
+
+  return (
+    <CustomEditor
+      response={response}
+      setResponse={setResponse}
+      socket={socket}
+    />
+  );
 };
 
 export default CollabEditor;
