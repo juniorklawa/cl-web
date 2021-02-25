@@ -9,11 +9,23 @@ const WhiteBoard = () => {
   const colorsRef = useRef(null);
 
   useEffect(() => {
+    socket.on("newDrawerUser", (data) => {
+      console.log(data);
+    });
+  }, [socket]);
+
+  useEffect(() => {
     // --------------- getContext() method returns a drawing context on the canvas----
 
     const canvas = canvasRef.current;
     const test = colorsRef.current;
     const context = canvas.getContext("2d");
+
+    let image = new Image(); // see note on creating an image
+    image.src = "https://en.islcollective.com/preview/201309/f/britishamerican-english-matching-exercise-fun-activities-games-icebreakers-oneonone-activiti_58057_1.jpg";
+    image.onload = function () {
+      context.drawImage(this, 0, 0);
+    };
 
     // ----------------------- Colors --------------------------------------------------
 
@@ -39,6 +51,8 @@ const WhiteBoard = () => {
     // ------------------------------- create the drawing ----------------------------
 
     const drawLine = (x0, y0, x1, y1, color, emit) => {
+      console.log(context);
+
       context.beginPath();
       context.moveTo(x0, y0);
       context.lineTo(x1, y1);
@@ -140,12 +154,23 @@ const WhiteBoard = () => {
 
     // ----------------------- socket.io connection ----------------------------
     const onDrawingEvent = (data) => {
+      const a = context.save();
+
+      console.log("oi", data);
+
       const w = canvas.width;
       const h = canvas.height;
       drawLine(data.x0 * w, data.y0 * h, data.x1 * w, data.y1 * h, data.color);
     };
 
     socket.on("drawing", onDrawingEvent);
+
+    socket.on("newDrawerUser", (data) => {
+      console.log("é nyuevo");
+      const w = canvas.width;
+      const h = canvas.height;
+      drawLine(data.x0 * w, data.y0 * h, data.x1 * w, data.y1 * h, data.color);
+    });
   }, [socket]);
 
   // ------------- The Canvas and color elements --------------------------
