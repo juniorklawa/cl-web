@@ -3,7 +3,7 @@ import io from "socket.io-client";
 const SocketContext = createContext({});
 
 const SocketProvider = ({ children }) => {
-  const ENDPOINT = process.env.ENDPOINT;
+  const ENDPOINT = 'https://2f7bf8bf7e74.ngrok.io';
 
   const socket = io(ENDPOINT);
 
