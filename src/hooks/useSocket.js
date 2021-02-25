@@ -3,7 +3,7 @@ import io from "socket.io-client";
 const SocketContext = createContext({});
 
 const SocketProvider = ({ children }) => {
-  const ENDPOINT = "http://localhost:8080";
+  const ENDPOINT = process.env.ENDPOINT;
 
   const socket = io(ENDPOINT);
 
