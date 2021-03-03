@@ -20,7 +20,7 @@ const Routes = () => {
           <CollabEditor />
         </Route>
 
-        <Route exact path="/google-docs">
+        <Route exact path="/google-docs/:level">
           <GoogleDocs />
         </Route>
       </Switch>
