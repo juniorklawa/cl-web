@@ -22,7 +22,7 @@ const Dashboard = () => {
           </div>
 
           <div
-            onClick={() => window.postMessage("CLOSE_WEBVIEW","*")}
+            onClick={() => window.ReactNativeWebView.postMessage('CLOSE_WEBVIEW')}
             id="option-button"
           >
             Teste WebWol
